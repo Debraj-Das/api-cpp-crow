@@ -39,4 +39,4 @@ g++ main.cpp -lsqlite3 -lpthread -o app
 - Run the server
 ```sh
 ./app
-``
+```
