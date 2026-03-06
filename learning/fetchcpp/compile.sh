@@ -7,7 +7,12 @@
 # -o pipefail:  If a command in a pipeline fails, the whole pipeline fails.
 set -euo pipefail
 
-g++ main.cpp -o app -lcpr -lcurl -lssl -lcrypto
+# Directly compile method
+# g++ main.cpp -o app -lcpr -lcurl -lssl -lcrypto
+
+# compile using cmake 
+cmake -S . -B build
+cmake --build build
 
 
 exit 0
