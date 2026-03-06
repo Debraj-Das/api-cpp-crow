@@ -2,6 +2,8 @@
 
 Setting up a CRUD API with Crow on a Linux system is remarkable straight forward. Because Crow is a "header-only" framework, you do not have to go through complex installation processes or build massive libraries; you mostly just need the header file and a standard system dependency.
 
+- [official github](https://github.com/CrowCpp/Crow)
+
 Here is the step-by-step guideline to get your first C++ API runing from scratch.
 
 ## Step 1: Install System dependencies
@@ -24,7 +26,7 @@ sudo apt install libsqlite3-dev
 - Setup the repository for development _(from scatch)_
 
 ```sh
-mkdir headers controllers services repository tests
+mkdir headers routers controllers services repository tests
 ```
 
 - Download the Crow header files _(from scatch)_

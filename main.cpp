@@ -1,27 +1,26 @@
-#include "controllers/userController.h"
 #include "headers/crow_all.h"
-#include "repositories/userRepository.h"
-#include "middlewares/logger.h"
 #include "middlewares/auth_middleware.h"
+#include "middlewares/logger.h"
+#include "repositories/userRepository.h"
+#include "routers/userRouter.h"
+
+// 1. Initialize App with Middlewares, else use SimpleApp
+using Apptype = crow::App<LoggerMiddleware, AdminAuth>;
+constexpr int PORT = 8080;
 
 int main() {
-    crow::App<LoggerMiddleware, AdminAuth> app;
+    Apptype app;
 
-    // Initialize SQLite Database on startup
+    // 2. Initialize Database
     UserRepository::init_database();
 
-    // Map the CRUD Routes
-    CROW_ROUTE(app, "/users")
-        .methods("POST"_method).CROW_MIDDLEWARES(app, AdminAuth)(UserController::createUser); // CREATE
-    CROW_ROUTE(app, "/users")
-        .methods("GET"_method)(UserController::getAllUsers); // READ
-    CROW_ROUTE(app, "/users/<int>")
-        .methods("PUT"_method).CROW_MIDDLEWARES(app, AdminAuth)(UserController::updateUser); // UPDATE
-    CROW_ROUTE(app, "/users/<int>")
-        .methods("DELETE"_method).CROW_MIDDLEWARES(app, AdminAuth)(UserController::deleteUser); // DELETE
-    CROW_ROUTE(app, "/users/<int>")
-        .methods("GET"_method)(UserController::getOneUser);
+    // 3. Register Routers
+    UserRouter::register_routes<Apptype>(app);
 
-    app.port(8080).multithreaded().run();
+    // If you had a billing router, you would just add:
+    // BillingRouter::register_routes(app);
+
+    // 4. Start Server
+    app.port(PORT).multithreaded().run();
     return 0;
 }
