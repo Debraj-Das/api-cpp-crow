@@ -41,4 +41,4 @@ EXPOSE 8080
 
 # 5. Run the executable that your compile.sh generated in the root of /app
 # (Change "my_server_app" to whatever the actual name of your executable is)
-CMD ["./app"]
+CMD ["./build/server"]
